@@ -54,8 +54,6 @@ $Global:myList = [System.Collections.ArrayList]@()
 $Global:myPointer = 0
 
 function Select-xkRandom{
-    #$max = $Global:data.Length
-    #$rnd = $(Get-Random -Maximum $max)
     $rnd = Select-xkUniqueRandom
     if($rnd -ne -1){
         $entry = $Global:data[$($rnd)]
@@ -66,7 +64,6 @@ function Select-xkRandom{
         return $rnd
     }
     return -1
-    #$Global:myList.insert($Global:myPointer, $rnd)
 }
 function Select-xkFromList{
     if($Global:myList.Count -1 -ge $Global:myPointer){
@@ -93,14 +90,6 @@ function Select-xkUniqueRandom{
 }
 
 $btnRNG.Add_Click({
-    <#$max = $Global:data.Length
-    $rnd = $(Get-Random -Maximum $max)
-    $entry = $Global:data[$($rnd)]
-    $tmp = $entry -split "&&"
-    $lbTitle.Content = $tmp[0];
-    $lbContent.Content = $tmp[1];
-    $imgContent.Source = $Global:AppBasePath + "\covers\" + $tmp[0].Trim() + ".jpg"
-    $Global:myList.insert($Global:myPointer, $rnd)#>
     $rnd = Select-xkRandom
     if($rnd -ne -1){
         if(-Not $Global:myList.Contains($rnd)){
@@ -113,7 +102,7 @@ $btnRNG.Add_Click({
 $btnBack.Add_Click({
     if($Global:myPointer -le 0){$Global:myPointer = $Global:myList.Count -1}
     elseif($Global:myPointer -gt 0){
-        $Global:myPointer -= 1 #$Global:myPointer - 1
+        $Global:myPointer -= 1
     }
     if($Global:myPointer -lt 0){$Global:myPointer = 0}
     Write-Host $Global:myPointer
